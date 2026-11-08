@@ -58,6 +58,12 @@ h1 { margin: 0 0 6px; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--title)
 .empty { grid-column: 1/-1; text-align: center; font-size: 1.3rem; }
 
 /* Only devices that really hover: on touch, :hover sticks after a tap. */
+/* Full-screen toggle (engine/fullscreen.js): fixed top-right so it stays reachable while scrolling. */
+#fullscreen {
+  position: fixed; top: 8px; right: 8px; z-index: 10; width: 44px; height: 44px; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 0; border-radius: 22px; background: #fffc; color: var(--accent); cursor: pointer;
+}
 @media (hover: hover) {
   .hints button:not(:disabled):hover { background: var(--hint-hover); }
 }
