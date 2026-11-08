@@ -4,6 +4,8 @@
 const GAMES = [
   "pokemon",
   "peppa",
+  "countries",
+  "pawpatrol",
 ];
 
 if (typeof module !== "undefined") module.exports = GAMES;

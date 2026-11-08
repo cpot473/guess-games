@@ -1,0 +1,13 @@
+:root {
+  /* Adventure Bay sky */
+  --bg: linear-gradient(180deg, #9bd7ff, #e6f6ff 60%, #ffe9a8);
+  --ink: #1d2b4f;
+  --title: #ffd23f; --title-edge: #1f3a93;
+  --accent: #1f3a93; --accent-shadow: #14266a;
+  --focus: #d62839; --focus-shadow: #84111d;
+  --bar: linear-gradient(90deg, #d62839, #ffd23f, #1f3a93);
+  --hint-bg: #ffe9a8; --hint-hover: #ffd23f; --hint-ink: #5a4300;
+  --cell-min: 170px;
+  /* kinds of character, used by filters, chips and found cards */
+  --pup:#1f6fd0; --human:#2f9e44; --villain:#7b2cbf; --animal:#c9791a;
+}

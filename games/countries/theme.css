@@ -1,0 +1,13 @@
+:root {
+  /* ocean */
+  --bg: linear-gradient(180deg, #7fd0ff, #3f9be0);
+  --ink: #12304f;
+  --title: #ffe66d; --title-edge: #0f4c81;
+  --accent: #1f78c8; --accent-shadow: #14548a;
+  --focus: #e8590c; --focus-shadow: #8f3607;
+  --bar: linear-gradient(90deg, #ffe66d, #6cc24a, #1f78c8);
+  --hint-bg: #d8f0ff; --hint-hover: #aee0ff; --hint-ink: #0f4c81;
+  --cell-min: 190px; /* long names such as Saint Vincent and the Grenadines */
+  /* continent colours, used by filters, chips and found cards (dark enough for white text) */
+  --africa:#c9791a; --asia:#c0392b; --europe:#2e6fd0; --northamerica:#2f9e44; --southamerica:#8e44ad; --oceania:#138d90;
+}
