@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gotta Guess 'Em All!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Gotta Guess 'Em All!</h1>
+    <div class="score"><span id="score">0</span> / 151 <button id="reset" title="Start over">New game</button></div>
+    <div class="bar"><div id="bar-fill"></div></div>
+    <input id="guess" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"
+           placeholder="Type a Pokémon name…" autofocus>
+    <div id="message" aria-live="polite">Type a Pokémon's name. After 5 letters it's checked automatically!</div>
+  </header>
+
+  <nav id="filters" aria-label="Filter"></nav>
+  <main id="table"></main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
