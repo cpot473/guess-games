@@ -1,0 +1,15 @@
+:root {
+  /* blue sky over green hills */
+  --bg: linear-gradient(180deg, #8fd3ff, #d4f1ff 55%, #9be27a 55.1%, #6cc24a);
+  --ink: #3a2a3a;
+  --title: #ff8fc0; --title-edge: #b0306a;
+  --accent: #e0457b; --accent-shadow: #a82b5a;
+  --focus: #b0306a; --focus-shadow: #6e1a3a;
+  --bar: linear-gradient(90deg, #ff8fc0, #ffd23f, #6cc24a);
+  --hint-bg: #ffd6e8; --hint-hover: #ffb3d4; --hint-ink: #7a1f47;
+  --cell-min: 180px; /* names are two words */
+  /* animal colours, used by filters, chips and found cards (dark enough for white text) */
+  --pig:#e0457b; --sheep:#8a94a8; --rabbit:#c0804f; --dog:#8d6249; --pony:#d9822b; --zebra:#4f5d68;
+  --elephant:#6f86a8; --cat:#e09a1f; --fox:#d9552a; --wolf:#6b6b8c; --giraffe:#c4950f; --mole:#6b4f3a;
+  --mouse:#8f8f9c; --bear:#a0522d; --kangaroo:#b97845; --donkey:#7e6f86; --gazelle:#b38a1c; --bull:#a8323f;
+}

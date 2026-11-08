@@ -1,0 +1,12 @@
+:root {
+  --bg: linear-gradient(135deg, #ffe66d, #ff9ecd 50%, #7fd8ff);
+  --title: #ffcb05; --title-edge: #3b4cca;
+  --accent: #3b4cca; --accent-shadow: #2a3799;
+  --focus: #ee1515; --focus-shadow: #a00;
+  --bar: linear-gradient(90deg, #ff5959, #ffcb05, #78c850);
+  --hint-bg: #ffeb99; --hint-hover: #ffd23f; --hint-ink: #5a4300;
+  /* type colours, used by filters, chips and caught cards */
+  --normal:#a8a878; --fire:#f08030; --water:#6890f0; --electric:#f8d030; --grass:#78c850;
+  --ice:#98d8d8; --fighting:#c03028; --poison:#a040a0; --ground:#e0c068; --flying:#a890f0;
+  --psychic:#f85888; --bug:#a8b820; --rock:#b8a038; --ghost:#705898; --dragon:#7038f8;
+}

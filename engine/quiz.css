@@ -1,0 +1,66 @@
+/* Layout for every game. A game's theme.css sets these variables (and its own colours, e.g. --fire). */
+:root {
+  --font: "Comic Sans MS", "Chalkboard SE", "Trebuchet MS", sans-serif;
+  --bg: #eef; --ink: #2b2b4b;
+  --title: #fff; --title-edge: #2b2b4b;
+  --accent: #2b2b4b; --accent-shadow: #000;   /* input border, active filter, plain chips */
+  --focus: #c0262d; --focus-shadow: #800;
+  --bar: #2b2b4b;
+  --hint-bg: #eee; --hint-hover: #ddd; --hint-ink: #2b2b4b;
+  --cell-min: 150px;
+}
+@media (pointer: coarse) { :root { --cell-min: 170px; } }
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0 12px 40px; font-family: var(--font);
+  background: var(--bg); background-attachment: fixed; color: var(--ink);
+}
+header { max-width: 760px; margin: 0 auto; padding: 16px 0 8px; text-align: center; }
+h1 { margin: 0 0 6px; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--title); -webkit-text-stroke: 2px var(--title-edge);
+     paint-order: stroke fill; text-shadow: 3px 3px 0 var(--title-edge); }
+.score { font-size: 1.4rem; font-weight: bold; }
+#reset { margin-left: 10px; font: inherit; font-size: .85rem; border: 0; border-radius: 12px; padding: 4px 10px; cursor: pointer; background: #fff; color: inherit; }
+.bar { height: 14px; background: #fff8; border-radius: 8px; margin: 6px auto 12px; overflow: hidden; border: 2px solid #fff; }
+#bar-fill { height: 100%; width: 0; background: var(--bar); transition: width .4s; }
+#guess {
+  width: 100%; font: inherit; font-size: 1.6rem; padding: 12px 18px; border-radius: 30px; border: 4px solid var(--accent);
+  text-align: center; outline: none; box-shadow: 0 4px 0 var(--accent-shadow);
+}
+#guess:focus { border-color: var(--focus); box-shadow: 0 4px 0 var(--focus-shadow); }
+#guess.shake { animation: shake .4s; }
+#message { min-height: 1.6em; margin-top: 8px; font-weight: bold; font-size: 1.1rem; }
+#message.good { color: #1b8a2f; } #message.bad { color: #c0262d; }
+
+#filters { max-width: 1100px; margin: 8px auto; display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+#filters button {
+  font: inherit; font-size: .95rem; font-weight: bold; border: 3px solid #fff; border-radius: 16px; padding: 4px 12px;
+  background: #fffc; color: inherit; cursor: pointer; text-transform: capitalize;
+}
+#filters button.tinted { color: #fff; text-shadow: 1px 1px 0 #0006; background: var(--c); }
+#filters button.active { outline: 3px solid var(--accent); transform: scale(1.08); }
+
+#table { max-width: 1100px; margin: 12px auto 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(var(--cell-min), 1fr)); }
+.cell { background: #fff; border-radius: 16px; padding: 8px; text-align: center; border: 4px solid #fff; box-shadow: 0 3px 0 #0003; min-height: 124px; display: flex; flex-direction: column; gap: 4px; }
+.cell.done { background: var(--c1, var(--accent)); border-color: var(--c2, #fff); color: #fff; animation: pop .5s; }
+.cell .tag { font-size: .8rem; opacity: .65; text-align: left; }
+.cell .name { font-size: 1.25rem; font-weight: bold; letter-spacing: 2px; min-height: 1.6em; }
+.cell.done .name { letter-spacing: 0; text-shadow: 1px 1px 0 #0005; }
+.hints { display: flex; gap: 4px; justify-content: center; flex-wrap: wrap; margin-top: auto; }
+.hints button { font: inherit; font-size: .75rem; border: 0; border-radius: 10px; padding: 3px 7px; cursor: pointer; font-weight: bold; background: var(--hint-bg); color: var(--hint-ink); }
+.hints button:disabled { opacity: .5; cursor: default; }
+.chip { display: inline-block; padding: 1px 8px; border-radius: 10px; margin: 1px; font-size: .78rem; font-weight: bold; color: #fff; text-transform: capitalize; background: var(--c, var(--accent)); text-shadow: 1px 1px 0 #0005; border: 2px solid #fff8; }
+.empty { grid-column: 1/-1; text-align: center; font-size: 1.3rem; }
+
+/* Only devices that really hover: on touch, :hover sticks after a tap. */
+@media (hover: hover) {
+  .hints button:not(:disabled):hover { background: var(--hint-hover); }
+}
+/* Finger-sized tap targets (44px) on touch screens; the desktop layout stays compact. */
+@media (pointer: coarse) {
+  #reset, #filters button, .hints button { min-height: 44px; }
+  .hints button { flex: 1 1 auto; font-size: .85rem; padding: 4px 8px; }
+}
+
+@keyframes shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+@keyframes pop { 0% { transform: scale(.7); } 60% { transform: scale(1.1); } 100% { transform: scale(1); } }
