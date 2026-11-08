@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gotta Guess 'Em All!</title>
+  <meta name="theme-color" content="#3b4cca">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,5 +24,10 @@
 
   <script src="data.js"></script>
   <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+    // Ask the browser not to evict saved progress under storage pressure.
+    if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
+  </script>
 </body>
 </html>
