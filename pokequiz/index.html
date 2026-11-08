@@ -4,30 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gotta Guess 'Em All!</title>
-  <meta name="theme-color" content="#3b4cca">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="icon-192.png">
-  <link rel="stylesheet" href="style.css">
+  <!-- The Pokémon game has moved; saved progress moves with it (same localStorage key). -->
+  <meta http-equiv="refresh" content="0; url=../games/pokemon/">
+  <script>location.replace("../games/pokemon/");</script>
 </head>
 <body>
-  <header>
-    <h1>Gotta Guess 'Em All!</h1>
-    <div class="score"><span id="score">0</span> / 151 <button id="reset" title="Start over">New game</button></div>
-    <div class="bar"><div id="bar-fill"></div></div>
-    <input id="guess" type="text" autocomplete="off" autocapitalize="off" spellcheck="false"
-           placeholder="Type a Pokémon name…" autofocus>
-    <div id="message" aria-live="polite">Type a Pokémon's name. After 5 letters it's checked automatically!</div>
-  </header>
-
-  <nav id="filters" aria-label="Filter"></nav>
-  <main id="table"></main>
-
-  <script src="data.js"></script>
-  <script src="app.js"></script>
-  <script>
-    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
-    // Ask the browser not to evict saved progress under storage pressure.
-    if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
-  </script>
+  <p><a href="../games/pokemon/">The Pokémon game has moved: tap here.</a></p>
 </body>
 </html>

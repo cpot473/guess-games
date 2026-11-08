@@ -1,6 +1,6 @@
 {
-  "name": "Gotta Guess 'Em All!",
-  "short_name": "Guess 'Em",
+  "name": "Guess Games",
+  "short_name": "Guess Games",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

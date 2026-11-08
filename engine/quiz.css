@@ -17,6 +17,11 @@ body {
   background: var(--bg); background-attachment: fixed; color: var(--ink);
 }
 header { max-width: 760px; margin: 0 auto; padding: 16px 0 8px; text-align: center; }
+/* Back to the launcher: on its own line at the left, finger-sized on every screen. */
+#home {
+  display: flex; align-items: center; width: fit-content; min-height: 44px; margin-bottom: 6px; padding: 0 16px;
+  border-radius: 22px; background: #fffc; color: var(--accent); font-weight: bold; text-decoration: none;
+}
 h1 { margin: 0 0 6px; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--title); -webkit-text-stroke: 2px var(--title-edge);
      paint-order: stroke fill; text-shadow: 3px 3px 0 var(--title-edge); }
 .score { font-size: 1.4rem; font-weight: bold; }

@@ -2,6 +2,7 @@
 // The part above startQuiz is pure and also loads in node for the tests.
 
 const MIN_LETTERS = 5; // a unique prefix this long is accepted while typing
+const ROOT = "../../";  // from a game page (games/<name>/) to the launcher and the service worker
 
 // Lowercase, accents dropped; only letters and symbols such as ♀/♂ count, so spaces, dots,
 // apostrophes and digits don't matter ("Mr. Mime" = "mrmime", "Chloé" = "chloe").
@@ -80,6 +81,7 @@ function startQuiz(game) {
 
   document.body.insertAdjacentHTML("afterbegin", `
     <header>
+      <a id="home" href="${ROOT}">🏠 All games</a>
       <h1>${game.title}</h1>
       <div class="score"><span id="score">0</span> / ${total} <button id="reset" title="Start over">New game</button></div>
       <div class="bar"><div id="bar-fill"></div></div>
@@ -189,5 +191,11 @@ function startQuiz(game) {
   input.focus();
 }
 
-if (typeof module !== "undefined") module.exports = { MIN_LETTERS, normalize, createMatcher, hiddenLetters, chip, cellHTML, shouldRefocus };
-else startQuiz(GAME);
+if (typeof module !== "undefined") module.exports = { MIN_LETTERS, ROOT, normalize, createMatcher, hiddenLetters, chip, cellHTML, shouldRefocus };
+else {
+  startQuiz(GAME);
+  // Offline support: the one service worker at the root caches the launcher and every game.
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register(ROOT + "sw.js", { scope: ROOT });
+  // Ask the browser not to evict saved progress under storage pressure.
+  if (navigator.storage && navigator.storage.persist) navigator.storage.persist();
+}

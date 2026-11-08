@@ -50,7 +50,7 @@ test("a masked card shows a gap between words and the hint buttons", () => {
 
 // Loads each game the way its index.html does: data.js, then the engine, as classic scripts sharing one
 // global scope. A `module` stub stops the engine from starting the page (no DOM in node).
-for (const g of ["pokemon", "peppa"]) {
+for (const g of require("../games/index.js")) {
   test(`${g}: index.html, data.js and the engine load together and render every card`, () => {
     const dir = path.join(__dirname, "..", "games", g);
     const html = fs.readFileSync(path.join(dir, "index.html"), "utf8");

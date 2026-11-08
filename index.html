@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guess Games</title>
+  <meta name="theme-color" content="#3b4cca">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="engine/quiz.css">
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #ffe66d, #ff9ecd 50%, #7fd8ff);
+      --title: #ffcb05; --title-edge: #3b4cca; --accent: #3b4cca;
+      --bar: linear-gradient(90deg, #ff5959, #ffcb05, #78c850);
+    }
+    #games { max-width: 760px; margin: 12px auto; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+    .tile {
+      display: flex; flex-direction: column; justify-content: center; gap: 8px; min-height: 140px; padding: 20px;
+      border-radius: 24px; background: #fff; border: 4px solid var(--accent); box-shadow: 0 5px 0 var(--accent);
+      color: inherit; text-decoration: none; text-align: center;
+    }
+    .tile:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--accent); }
+    .tile .name { font-size: 1.6rem; font-weight: bold; }
+    .tile .bar { display: block; width: 100%; margin: 0; background: #eee; border-color: #ddd; }
+    .tile .bar span { display: block; height: 100%; background: var(--bar); }
+  </style>
+</head>
+<body>
+  <header><h1>Guess Games!</h1></header>
+  <main id="games"></main>
+  <script src="games/index.js"></script>
+  <script src="launcher.js"></script>
+</body>
+</html>

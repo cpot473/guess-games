@@ -1,22 +1,13 @@
-// Offline support: cache every file on install, serve from cache first.
-// To ship an update, change VERSION; the next online visit fetches the new files.
-const VERSION = "pokequiz-v1";
-const FILES = ["./", "index.html", "style.css", "data.js", "app.js", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
-
-self.addEventListener("install", e => {
-  // cache: "reload" skips the HTTP cache, so a new VERSION never stores stale copies.
-  e.waitUntil(caches.open(VERSION)
-    .then(c => c.addAll(FILES.map(f => new Request(f, { cache: "reload" }))))
-    .then(() => self.skipWaiting()));
-});
+// The old pokequiz/ app has moved to games/pokemon/. Devices that installed its offline worker
+// (scope pokequiz/, cache "pokequiz-v1") fetch this file on their next online visit and replace it:
+// it deletes the old cache, unregisters itself and reloads open pokequiz tabs, which then get
+// pokequiz/index.html (a redirect) from the network, or from the root sw.js cache when offline.
+self.addEventListener("install", () => self.skipWaiting());
 
 self.addEventListener("activate", e => {
   e.waitUntil(caches.keys()
-    .then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k))))
-    .then(() => self.clients.claim()));
-});
-
-self.addEventListener("fetch", e => {
-  if (e.request.method !== "GET") return;
-  e.respondWith(caches.match(e.request, { ignoreSearch: true }).then(hit => hit || fetch(e.request)));
+    .then(keys => Promise.all(keys.filter(k => k.startsWith("pokequiz-")).map(k => caches.delete(k))))
+    .then(() => self.registration.unregister())
+    .then(() => self.clients.matchAll({ type: "window" }))
+    .then(tabs => tabs.forEach(t => t.navigate(t.url).catch(() => {}))));
 });
