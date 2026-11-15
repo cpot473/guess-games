@@ -1,0 +1,13 @@
+:root {
+  /* a bright music-stage glow */
+  --bg: linear-gradient(135deg, #ffe0b8, #ffc2e0 50%, #c9b8ff);
+  --ink: #2b1b4d;
+  --title: #ffa94d; --title-edge: #5a2d8a;
+  --accent: #7a3fc0; --accent-shadow: #5a2d8a;
+  --focus: #5a2d8a; --focus-shadow: #371a5c;
+  --bar: linear-gradient(90deg, #ff9f43, #ff6fb1, #7a3fc0);
+  --hint-bg: #e6d9ff; --hint-hover: #cdb6ff; --hint-ink: #4a2480;
+  --cell-min: 170px;
+  /* sound-type colours, used by filters, chips and found cards (dark enough for white text) */
+  --beats:#d9822b; --effects:#2f7fc0; --melodies:#7a3fc0; --vocals:#d6457b;
+}
