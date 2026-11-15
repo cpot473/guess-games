@@ -1,0 +1,13 @@
+:root {
+  /* parchment */
+  --bg: linear-gradient(180deg, #fdf6e3, #efe0c0);
+  --ink: #3b2a1a;
+  --title: #fffaf0; --title-edge: #6b4a2b;
+  --accent: #8b5e34; --accent-shadow: #5a3b1f;
+  --focus: #c0392b; --focus-shadow: #7a2219;
+  --bar: linear-gradient(90deg, #f5deb3, #d2a679, #8b5e34);
+  --hint-bg: #f3e3c3; --hint-hover: #e6cc9b; --hint-ink: #5a3b1f;
+  --cell-min: 190px; /* long names such as Intermediate Cuneiform */
+  /* region colours, used by filters, chips and found cards (dark enough for white text) */
+  --head:#8e44ad; --spine:#c0392b; --chest:#2e6fd0; --arm:#2f9e44; --hand:#c9791a; --pelvis:#138d90; --leg:#d6457b; --foot:#6b4f3a;
+}

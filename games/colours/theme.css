@@ -1,0 +1,17 @@
+:root {
+  /* a soft rainbow */
+  --bg: linear-gradient(135deg, #ffd6e0, #fff1c1 35%, #d5f5e3 65%, #d6e6ff);
+  --ink: #2b2b4b;
+  --title: #ff7a59; --title-edge: #3b3b8f;
+  --accent: #5a4fcf; --accent-shadow: #3b3b8f;
+  --focus: #d6457b; --focus-shadow: #8f1f4f;
+  --bar: linear-gradient(90deg, #ff5959, #ffcb05, #78c850, #4aa3f0, #8e44ad);
+  --hint-bg: #e6e3ff; --hint-hover: #cfc9ff; --hint-ink: #3b3b8f;
+  --cell-min: 170px;
+}
+/* The swatch is the clue, so the tag must not fade like the other tags do. */
+.cell .tag { opacity: 1; }
+.swatch { display: block; height: 36px; border-radius: 10px; border: 2px solid #0003; }
+/* Light colours (white, cream, ivory ...) need dark text on the found card; doneStyle sets --light for them. */
+.cell.done[style*="--light"] { color: #222; }
+.cell.done[style*="--light"] .name { text-shadow: none; }

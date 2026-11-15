@@ -1,0 +1,13 @@
+:root {
+  /* a fruit bowl */
+  --bg: linear-gradient(135deg, #fff3b0, #ffd6a5 50%, #ffb3c1);
+  --ink: #4a2a1a;
+  --title: #ff9f1c; --title-edge: #9c2f1a;
+  --accent: #d6451f; --accent-shadow: #9c2f1a;
+  --focus: #2f9e44; --focus-shadow: #1c6b2b;
+  --bar: linear-gradient(90deg, #ffd23f, #ff6b6b, #8e44ad);
+  --hint-bg: #ffe7c2; --hint-hover: #ffd08a; --hint-ink: #7a2e12;
+  --cell-min: 170px;
+  /* type colours, used by filters, chips and found cards (dark enough for white text) */
+  --citrus:#d9822b; --berry:#8e44ad; --stone:#d6457b; --orchard:#2f9e44; --melon:#138d90; --tropical:#c0392b; --other:#6b7280;
+}

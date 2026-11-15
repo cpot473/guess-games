@@ -8,6 +8,10 @@ const GAMES = [
   "pawpatrol",
   "bluey",
   "sprunki",
+  "fruit",
+  "colours",
+  "elements",
+  "bones",
 ];
 
 // The launcher's home page: one tile per category, in this order. A game's GAME.category is one of these ids.

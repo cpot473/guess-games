@@ -1,0 +1,14 @@
+:root {
+  /* a bright lab */
+  --bg: linear-gradient(135deg, #d4f1f4, #b9d7f2 55%, #d9c8f5);
+  --ink: #1a2c4a;
+  --title: #6ee7b7; --title-edge: #1f4f8f;
+  --accent: #2f6fbf; --accent-shadow: #1f4f8f;
+  --focus: #d6457b; --focus-shadow: #8f1f4f;
+  --bar: linear-gradient(90deg, #6ee7b7, #4aa3f0, #8e44ad);
+  --hint-bg: #d8ebff; --hint-hover: #b3d6ff; --hint-ink: #1f4f8f;
+  --cell-min: 170px; /* names such as Praseodymium, Rutherfordium */
+  /* element-type colours, used by filters, chips and found cards (dark enough for white text) */
+  --alkali:#d9534f; --alkaline:#c97a12; --transition:#3b6fb6; --post:#5f8a2e; --metalloid:#2e8b7a;
+  --nonmetal:#2f9e44; --halogen:#8e44ad; --noble:#d6457b; --lanthanide:#7a5c3b; --actinide:#9b2f2f;
+}
