@@ -110,3 +110,8 @@ test("the home page has a tile per category; a category page lists its games or 
   assert.match(html, /href="games\/abc\/"/);
   assert.doesNotMatch(html, /Coming soon/);
 });
+
+test("every game saves under its own localStorage key", () => {
+  const ids = GAMES.map(g => require(`../games/${g}/data.js`).id);
+  assert.equal(new Set(ids).size, ids.length, `duplicate save keys: ${ids}`);
+});
