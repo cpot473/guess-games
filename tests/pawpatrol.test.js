@@ -43,3 +43,9 @@ test("every character has a kind with a filter, and a job", () => {
     assert.ok(c.job, c.name);
   }
 });
+
+test("every pup is in the game", () => {
+  const pups = GAME.items.filter(c => c.kind === "pup").map(c => c.name);
+  for (const n of ["Chase", "Marshall", "Skye", "Rocky", "Rubble", "Zuma", "Everest", "Tracker", "Rex", "Liberty", "Tuck", "Ella", "Al", "Coral", "Roxi", "Robo-Dog"]) assert.ok(pups.includes(n), n);
+  assert.ok(GAME.items.length >= 48);
+});

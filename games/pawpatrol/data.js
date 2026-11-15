@@ -28,6 +28,44 @@ Wally|animal|Walrus
 Jake|human|Mountain guide
 Carlos|human|Tracker's jungle friend
 Ace Sorensen|human|Stunt pilot|Ace
+Liberty|pup|Scooter pup from Adventure City
+Tuck|pup|Mighty twin who can shrink
+Ella|pup|Mighty twin who can grow
+Al|pup|Truck driver pup
+Coral|pup|Mer-pup, Skye's cousin
+Roxi|pup|Monster truck pup
+Charger|pup|Builder Cove construction pup
+Motor|pup|Builder Cove construction pup
+Mix|pup|Builder Cove construction pup
+Nano|pup|Junior Patroller
+Mini|pup|Junior Patroller
+Tot|pup|Junior Patroller
+Robo-Dog|pup|Robot who drives the Patroller|Robodog,Robo Dog
+Wild|animal|Leader of the Cat Pack
+Rory|animal|Cat Pack member
+Shade|animal|Cat Pack member
+Leo|animal|Cat Pack member
+Francois Turbot|human|Cap'n Turbot's cousin|Francois
+Daring Danny X|human|Stunt kid|Danny,Danny X,Daring Danny
+Harold Humdinger|villain|Mayor Humdinger's nephew|Harold
+Sweetie|villain|Wants to be queen of Barkingburg
+Busby|villain|Sweetie's robot frog toy
+Sid Swashbuckle|villain|Pirate captain|Sid
+Arrby|villain|Sid's first mate
+Ladybird|villain|Shiny-things thief
+Copycat|villain|Cat with the pups' powers
+Cheetah|villain|Race car driver
+Hubcap|villain|Leader of the Ruff-Ruff Pack
+Dwayne|villain|Ruff-Ruff Pack biker
+Gasket|villain|Ruff-Ruff Pack inventor
+Duke of Flappington|villain|Princess's cousin|Duke
+Jean-Claude|villain|The Duke's golden eagle|Jean Claude
+Claw|villain|Ex-knight of Barkingburg
+Sparks|villain|Claw's red dragon
+Moby|villain|Mer-pup inventor
+McSquidly|villain|Moby's squid sidekick
+Boomer|villain|Monster truck driver
+Frank|villain|Boomer's ferret sidekick
 `;
 
 const CHARACTERS = RAW.trim().split("\n").map(line => {
