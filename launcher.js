@@ -18,7 +18,19 @@ function tileHTML(dir, game, saved) {
     <span class="bar"><span style="width:${n / total * 100}%"></span></span></a>`;
 }
 
-if (typeof module !== "undefined") module.exports = { guessedCount, tileHTML };
+// A category tile on the home page: its name and icon only.
+function categoryTileHTML(cat) {
+  return `<a class="tile" href="#${cat.id}"><span class="icon">${cat.icon}</span><span class="name">${cat.name}</span></a>`;
+}
+
+// A category's page: its games' tiles (entries: {dir, game, saved}), or "Coming soon" if it has none.
+function categoryPageHTML(cat, entries) {
+  const tiles = entries.length ? entries.map(e => tileHTML(e.dir, e.game, e.saved)).join("")
+    : `<div class="tile soon"><span class="name">Coming soon</span></div>`;
+  return `<h2><a id="back" href="#">🏠 Back</a> ${cat.icon} ${cat.name}</h2>${tiles}`;
+}
+
+if (typeof module !== "undefined") module.exports = { guessedCount, tileHTML, categoryTileHTML, categoryPageHTML };
 else {
   // Each data.js is a classic script that declares `const GAME`, so two cannot share one page:
   // run each in its own function scope instead. The service worker has them cached.
@@ -27,10 +39,18 @@ else {
     .then(js => new Function(`${js}\nreturn GAME;`)())
     .catch(() => null)));
   const saved = game => { try { return game && localStorage.getItem(game.id); } catch (e) { return null; } };
-  // pageshow also fires when the browser's Back button restores this page, so the scores stay current.
-  addEventListener("pageshow", () => games.then(list => {
-    document.getElementById("games").innerHTML = list.map((g, i) => tileHTML(GAMES[i], g, saved(g))).join("");
-  }));
+  // The hash picks the page: "" is the home page, "#<category id>" a category. pageshow also fires when the
+  // browser's Back button restores this page, so the scores stay current.
+  const render = () => games.then(list => {
+    const cat = CATEGORIES.find(c => c.id === location.hash.slice(1));
+    document.getElementById("games").innerHTML = cat
+      ? categoryPageHTML(cat, list.map((g, i) => ({ dir: GAMES[i], game: g, saved: saved(g) }))
+          .filter(e => e.game ? e.game.category === cat.id : false))
+      : CATEGORIES.map(categoryTileHTML).join("");
+    scrollTo(0, 0);
+  });
+  addEventListener("pageshow", render);
+  addEventListener("hashchange", render);
 
   // Offline support for the launcher and every game, and keep saved progress from being evicted.
   if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");

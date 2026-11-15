@@ -208,6 +208,7 @@ const key = continent => continent.replace(" ", "").toLowerCase(); // the CSS co
 
 const GAME = {
   id: "countriesquiz", // localStorage key
+  category: "learn", // a CATEGORIES id in games/index.js
   title: "Guess the Countries!",
   placeholder: "Type a country…",
   noun: "country", nouns: "countries", verb: "found",

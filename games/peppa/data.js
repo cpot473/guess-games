@@ -57,6 +57,7 @@ const ANIMALS = [...new Set(CHARACTERS.map(c => c.animal))];
 
 const GAME = {
   id: "peppaquiz", // localStorage key
+  category: "characters", // a CATEGORIES id in games/index.js
   title: "Guess Peppa's Friends!",
   placeholder: "Type a name…",
   noun: "character", nouns: "characters", verb: "found",

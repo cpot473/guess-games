@@ -6,9 +6,9 @@ const crypto = require("node:crypto");
 const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
-const GAMES = require("../games/index.js");
+const { GAMES, CATEGORIES } = require("../games/index.js");
 const { ROOT } = require("../engine/quiz.js");
-const { guessedCount, tileHTML } = require("../launcher.js");
+const { guessedCount, tileHTML, categoryTileHTML, categoryPageHTML } = require("../launcher.js");
 
 const repo = path.join(__dirname, "..");
 
@@ -93,4 +93,20 @@ test("the launcher reads each game's progress under its save key, the one the en
     assert.equal(typeof GAME.id, "string");
     assert.match(tileHTML(g, GAME, JSON.stringify({ guessed: [1, 2], hints: {} })), new RegExp(`2 / ${GAME.items.length}`));
   }
+});
+
+test("every game is in a category, and the engine's Back link returns to it", () => {
+  const ids = CATEGORIES.map(c => c.id);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const g of GAMES) assert.ok(ids.includes(require(`../games/${g}/data.js`).category), `${g}: unknown category`);
+});
+
+test("the home page has a tile per category; a category page lists its games or says Coming soon", () => {
+  const cat = CATEGORIES[0];
+  assert.match(categoryTileHTML(cat), new RegExp(`href="#${cat.id}".*${cat.icon}.*${cat.name}`, "s"));
+  assert.match(categoryPageHTML(cat, []), /Coming soon/);
+  const game = { title: "Guess!", items: [{}] };
+  const html = categoryPageHTML(cat, [{ dir: "abc", game, saved: null }]);
+  assert.match(html, /href="games\/abc\/"/);
+  assert.doesNotMatch(html, /Coming soon/);
 });

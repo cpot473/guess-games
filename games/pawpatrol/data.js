@@ -39,6 +39,7 @@ const KINDS = ["pup", "human", "villain", "animal"];
 
 const GAME = {
   id: "pawpatrolquiz", // localStorage key
+  category: "characters", // a CATEGORIES id in games/index.js
   title: "Guess the Paw Patrol!",
   placeholder: "Type a name…",
   noun: "character", nouns: "characters", verb: "found",

@@ -168,6 +168,7 @@ const POKEMON = RAW.trim().split("\n").map((line, i) => {
 
 const GAME = {
   id: "pokequiz-gen1", // localStorage key: the same as the original pokequiz, so saved progress carries over
+  category: "characters", // a CATEGORIES id in games/index.js
   title: "Gotta Guess 'Em All!",
   placeholder: "Type a Pokémon name…",
   noun: "Pokémon", nouns: "Pokémon", verb: "caught",

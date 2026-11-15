@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 const { fullscreenApi, fullscreenButton } = require("../engine/fullscreen.js");
-const GAMES = require("../games/index.js");
+const { GAMES } = require("../games/index.js");
 
 const ROOT = path.join(__dirname, "..");
 

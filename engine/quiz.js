@@ -81,7 +81,7 @@ function startQuiz(game) {
 
   document.body.insertAdjacentHTML("afterbegin", `
     <header>
-      <a id="home" href="${ROOT}">🏠 All games</a>
+      <a id="home" href="${ROOT}#${game.category}">🏠 Back</a>
       <h1>${game.title}</h1>
       <div class="score"><span id="score">0</span> / ${total} <button id="reset" title="Start over">New game</button></div>
       <div class="bar"><div id="bar-fill"></div></div>
