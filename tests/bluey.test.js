@@ -1,0 +1,45 @@
+const test = require("node:test");
+const assert = require("node:assert/strict");
+const GAME = require("../games/bluey/data.js");
+const { createMatcher, normalize } = require("../engine/quiz.js");
+
+const { match, exact } = createMatcher(GAME.items);
+const name = (text, force) => (match(text, force) || {}).name || null;
+const paused = text => (exact(text) || {}).name || null;
+
+test("first names, nicknames and aliases are accepted", () => {
+  assert.equal(name("bluey"), "Bluey Heeler");
+  assert.equal(name("Bingo Heeler"), "Bingo Heeler");
+  assert.equal(paused("Nana"), "Chris Heeler");
+  assert.equal(paused("Grandad"), "Mort Cattle");
+  assert.equal(paused("Uncle Rad"), "Radley Heeler");
+  assert.equal(name("captain hound"), "Captain Hound");
+  assert.equal(paused("Tiny"), "Tiny C.");
+  assert.equal(paused("Mrs. Retriever"), "Mrs Retriever");
+});
+
+test("ambiguous starts are not accepted, even on Enter", () => {
+  for (const t of ["Heeler", "Cattle", "Pikachu"]) assert.equal(name(t, true), null, t);
+});
+
+test("every name and alias is accepted, and no two characters share a name or alias", () => {
+  const seen = new Map();
+  for (const c of GAME.items) {
+    assert.equal(name(c.name, true), c.name);
+    for (const a of c.aliases || []) assert.equal(paused(a), c.name, a);
+    for (const k of [c.name, ...(c.aliases || [])].map(normalize)) {
+      assert.ok(!seen.has(k) || seen.get(k) === c.name, `${k}: ${seen.get(k)} and ${c.name}`);
+      seen.set(k, c.name);
+    }
+  }
+});
+
+test("every character has a group with a filter, a breed and a who, and the family is all there", () => {
+  const groups = GAME.filters.map(f => f.label);
+  for (const c of GAME.items) {
+    assert.ok(groups.includes(c.group), c.name);
+    assert.ok(c.breed && c.who, c.name);
+  }
+  const names = GAME.items.map(c => c.name);
+  for (const n of ["Bluey Heeler", "Bingo Heeler", "Bandit Heeler", "Chilli Heeler", "Muffin Heeler", "Socks Heeler", "Stripe Heeler", "Trixie Heeler", "Radley Heeler", "Frisky Heeler", "Chris Heeler", "Bob Heeler", "Mort Cattle", "Brandy Cattle"]) assert.ok(names.includes(n), n);
+});

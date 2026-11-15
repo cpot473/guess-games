@@ -1,0 +1,13 @@
+:root {
+  /* blue sky over a sunny backyard */
+  --bg: linear-gradient(180deg, #8fc8ff, #d6ecff 55%, #ffe3a3 55.1%, #f5c26b);
+  --ink: #1f3552;
+  --title: #7fb7ff; --title-edge: #1f4f8f;
+  --accent: #2f6fbf; --accent-shadow: #1f4f8f;
+  --focus: #1f4f8f; --focus-shadow: #12315a;
+  --bar: linear-gradient(90deg, #7fb7ff, #ffd23f, #f08a3c);
+  --hint-bg: #d6e8ff; --hint-hover: #b3d3ff; --hint-ink: #1f4f8f;
+  --cell-min: 180px; /* names are two words */
+  /* group colours, used by filters, chips and found cards (dark enough for white text) */
+  --family:#2f6fbf; --neighbours:#2e8b57; --school:#d9822b; --kindy:#d6457b; --grown-ups:#7b5ea7; --others:#6b7280;
+}
