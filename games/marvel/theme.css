@@ -1,0 +1,13 @@
+:root {
+  /* comic-book red and blue */
+  --bg: linear-gradient(180deg, #fff3c4, #ffe08a 60%, #ffc94d);
+  --ink: #1a1f3d;
+  --title: #ffd23f; --title-edge: #a3121f;
+  --accent: #1b3a8a; --accent-shadow: #10255c;
+  --focus: #c8202f; --focus-shadow: #7d0f19;
+  --bar: linear-gradient(90deg, #c8202f, #ffd23f, #1b3a8a);
+  --hint-bg: #dfe6ff; --hint-hover: #bcc9ff; --hint-ink: #10255c;
+  --cell-min: 170px;
+  /* sides, used by filters, chips and found cards (dark enough for white text) */
+  --hero:#1b6fd0; --villain:#7b1fa2; --anti-hero:#c77410;
+}

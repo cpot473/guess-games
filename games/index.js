@@ -12,12 +12,16 @@ const GAMES = [
   "colours",
   "elements",
   "bones",
+  "gabby",
+  "marvel",
+  "minecraftmobs",
+  "minecraftblocks",
 ];
 
 // The launcher's home page: one tile per category, in this order. A game's GAME.category is one of these ids.
 // A category with no game yet shows a "Coming soon" tile.
 const CATEGORIES = [
-  { id: "characters", name: "Characters", icon: "🎭" },
+  { id: "characters", name: "TV Shows & Games", icon: "📺" },
   { id: "know", name: "Do you know?", icon: "🤔" },
   { id: "top10", name: "Top 10s", icon: "🏆" },
   { id: "learn", name: "Learn!", icon: "📚" },

@@ -1,0 +1,13 @@
+:root {
+  /* grassy Overworld sky */
+  --bg: linear-gradient(180deg, #8ec9ff, #d8efff 60%, #7cbd4b 60.1%, #5a9a34);
+  --ink: #25301f;
+  --title: #7cd14b; --title-edge: #1f3d12;
+  --accent: #4a7c2f; --accent-shadow: #2d4d1b;
+  --focus: #8b5a2b; --focus-shadow: #4a2f12;
+  --bar: linear-gradient(90deg, #7cd14b, #f2c230, #c0392b);
+  --hint-bg: #dff0cc; --hint-hover: #bfe0a0; --hint-ink: #2d4d1b;
+  --cell-min: 160px;
+  /* kinds of mob, used by filters, chips and found cards */
+  --passive:#2e9e48; --neutral:#d98a1f; --hostile:#c0392b; --boss:#6a3fa0;
+}

@@ -1,0 +1,13 @@
+:root {
+  /* dirt and sky */
+  --bg: linear-gradient(180deg, #8ec9ff, #d8efff 45%, #7cbd4b 45.1%, #7cbd4b 50%, #8b6a45 50.1%);
+  --ink: #2a2118;
+  --title: #7cd14b; --title-edge: #3b2a16;
+  --accent: #6b4e2e; --accent-shadow: #3b2a16;
+  --focus: #2e9e48; --focus-shadow: #1c5c2b;
+  --bar: linear-gradient(90deg, #8b6a45, #7cd14b, #4fd0e0);
+  --hint-bg: #efe0c9; --hint-hover: #dcc39b; --hint-ink: #4a3319;
+  --cell-min: 170px;
+  /* kinds of block, used by filters, chips and found cards */
+  --natural:#2e9e48; --stone:#6b7280; --ore:#2a7fb8; --wood:#8b5a2b; --useful:#c0392b; --nether-end:#7b2cbf;
+}

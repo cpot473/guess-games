@@ -1,0 +1,13 @@
+:root {
+  /* pink and purple dollhouse */
+  --bg: linear-gradient(180deg, #ffd1ec, #fff0f9 55%, #e9d4ff);
+  --ink: #4a1f4f;
+  --title: #ffffff; --title-edge: #b8247e;
+  --accent: #b8247e; --accent-shadow: #7d1456;
+  --focus: #7b3fd0; --focus-shadow: #4b1f93;
+  --bar: linear-gradient(90deg, #ff6fb5, #ffd23f, #7b3fd0);
+  --hint-bg: #ffe0f1; --hint-hover: #ffc0e2; --hint-ink: #7d1456;
+  --cell-min: 170px;
+  /* kinds of character, used by filters, chips and found cards */
+  --person:#d9822b; --cat:#d6457b; --pal:#7b3fd0;
+}
