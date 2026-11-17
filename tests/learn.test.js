@@ -1,9 +1,9 @@
-// The Learn! games with plain data lists: fruit, colours, elements and bones.
+// The Learn! games with plain data lists: fruit, colours, elements, bones and vegetables.
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { createMatcher, normalize, cellHTML } = require("../engine/quiz.js");
 
-const games = Object.fromEntries(["fruit", "colours", "elements", "bones"].map(g => [g, require(`../games/${g}/data.js`)]));
+const games = Object.fromEntries(["fruit", "colours", "elements", "bones", "vegetables"].map(g => [g, require(`../games/${g}/data.js`)]));
 
 for (const [g, GAME] of Object.entries(games)) {
   test(`${g}: no two items share a name or alias, and every name and alias is accepted`, () => {
@@ -72,4 +72,17 @@ test("bones: every region has bones, and the everyday names are accepted", () =>
   }
   assert.ok(games.bones.items.every(b => b.where && b.clue));
   assert.ok(games.bones.items.length >= 60);
+});
+
+test("vegetables: the everyday vegetables are there, each with a plant part and a colour", () => {
+  const { exact } = createMatcher(games.vegetables.items);
+  const names = games.vegetables.items.map(v => v.name);
+  for (const n of ["Carrot", "Potato", "Broccoli", "Cabbage", "Onion", "Pea", "Cucumber", "Spinach"]) assert.ok(names.includes(n), n);
+  assert.ok(games.vegetables.items.length >= 60);
+  for (const v of games.vegetables.items) assert.ok(v.part && v.colour, v.name);
+  for (const f of games.vegetables.filters) assert.ok(games.vegetables.items.some(f.test), f.label);
+  assert.equal(exact("Zucchini").name, "Courgette");
+  assert.equal(exact("Eggplant").name, "Aubergine");
+  assert.equal(exact("Corn").name, "Sweetcorn");
+  assert.equal(games.vegetables.items.find(v => v.name === "Broccoli").part, "flower");
 });

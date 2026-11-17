@@ -12,6 +12,7 @@ const GAMES = [
   "colours",
   "elements",
   "bones",
+  "vegetables",
   "gabby",
   "marvel",
   "minecraftmobs",

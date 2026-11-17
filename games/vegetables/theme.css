@@ -1,0 +1,13 @@
+:root {
+  /* a vegetable patch */
+  --bg: linear-gradient(180deg, #e3f6c8, #c4e8a0 60%, #a07850 60.1%, #7a5a3a);
+  --ink: #23361a;
+  --title: #ffd23f; --title-edge: #2a5a1a;
+  --accent: #2f8a3c; --accent-shadow: #1c5c26;
+  --focus: #e8751a; --focus-shadow: #9a4a0c;
+  --bar: linear-gradient(90deg, #7cd14b, #ffd23f, #e8751a);
+  --hint-bg: #e0f2cc; --hint-hover: #c2e3a0; --hint-ink: #1c5c26;
+  --cell-min: 170px;
+  /* the part of the plant we eat, used by filters, chips and found cards (dark enough for white text) */
+  --root:#c2611a; --leaf:#2f9e44; --stem:#138d90; --flower:#8e44ad; --fruit:#c0392b; --seed:#b8860b; --bulb:#6b7280;
+}
