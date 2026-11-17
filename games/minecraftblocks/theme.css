@@ -7,7 +7,7 @@
   --focus: #2e9e48; --focus-shadow: #1c5c2b;
   --bar: linear-gradient(90deg, #8b6a45, #7cd14b, #4fd0e0);
   --hint-bg: #efe0c9; --hint-hover: #dcc39b; --hint-ink: #4a3319;
-  --cell-min: 170px;
+  --cell-min: 190px;
   /* kinds of block, used by filters, chips and found cards */
-  --natural:#2e9e48; --stone:#6b7280; --ore:#2a7fb8; --wood:#8b5a2b; --useful:#c0392b; --nether-end:#7b2cbf;
+  --natural:#2e9e48; --stone:#6b7280; --ore:#2a7fb8; --wood:#8b5a2b; --colour:#d6457b; --copper:#c2611a; --useful:#c0392b; --nether-end:#7b2cbf;
 }

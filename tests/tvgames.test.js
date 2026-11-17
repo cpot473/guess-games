@@ -53,10 +53,30 @@ test("minecraftmobs: each type is used, and the two bosses are the dragon and th
   for (const m of items) assert.ok(m.where && m.clue, m.name);
 });
 
-test("minecraftblocks: each type is used, and every block has a place and a use", () => {
+test("minecraftblocks: over 900 blocks, every type used, and every block has a place and a use", () => {
   const items = games.minecraftblocks.items;
+  assert.ok(items.length >= 900, String(items.length));
   for (const f of games.minecraftblocks.filters) assert.ok(items.some(b => f.test(b)), f.label);
   for (const b of items) assert.ok(b.where && b.use, b.name);
   const { exact } = createMatcher(items);
   assert.equal(exact("Diamond Block").name, "Block of Diamond");
+});
+
+test("minecraftblocks: the first blocks keep their places, because saved progress is stored by position", () => {
+  const names = games.minecraftblocks.items.map(b => b.name);
+  assert.deepEqual(names.slice(0, 5), ["Dirt", "Grass Block", "Sand", "Gravel", "Clay"]);
+  assert.equal(names[71], "Purpur Block");
+});
+
+test("minecraftblocks: families are generated in full, and Grey is accepted for Gray", () => {
+  const items = games.minecraftblocks.items;
+  const names = items.map(b => b.name);
+  for (const kind of ["Wool", "Concrete", "Terracotta", "Stained Glass", "Bed", "Banner", "Candle"]) {
+    assert.equal(names.filter(n => n.endsWith(` ${kind}`) && n !== kind && !n.includes("Glazed") && !n.includes("Powder")).length, 16, kind);
+  }
+  for (const n of ["Oak Stairs", "Pale Oak Door", "Stripped Cherry Log", "Mangrove Propagule", "Bamboo Mosaic", "Crimson Hyphae", "Cobblestone Wall",
+    "Stone Brick Stairs", "Smooth Stone Slab", "Waxed Oxidized Cut Copper Stairs", "Block of Copper", "Dead Brain Coral Fan", "Tube Coral Block"]) assert.ok(names.includes(n), n);
+  const { exact } = createMatcher(items);
+  assert.equal(exact("Light Grey Wool").name, "Light Gray Wool");
+  assert.equal(items.find(b => b.name === "Waxed Exposed Copper").type, "copper");
 });
