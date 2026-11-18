@@ -50,16 +50,17 @@ test("a masked card shows a gap between words and the hint buttons", () => {
 
 // Loads each game the way its index.html does: data.js, then the engine, as classic scripts sharing one
 // global scope. A `module` stub stops the engine from starting the page (no DOM in node).
-for (const g of require("../games/index.js").GAMES) {
+// (Top 10s and Do you know? games use their own engines: see top10.test.js and know.test.js.)
+for (const g of require("../games/index.js").GAMES.filter(g => !/top10|know/.test(fs.readFileSync(path.join(__dirname, "..", "games", g, "index.html"), "utf8")))) {
   test(`${g}: index.html, data.js and the engine load together and render every card`, () => {
     const dir = path.join(__dirname, "..", "games", g);
     const html = fs.readFileSync(path.join(dir, "index.html"), "utf8");
     const refs = [...html.matchAll(/(?:src|href)="([^"]+)"/g)].map(m => m[1]);
-    assert.deepEqual(refs, ["../../engine/quiz.css", "theme.css", "data.js", "../../engine/quiz.js", "../../engine/fullscreen.js"]);
+    assert.deepEqual(refs, ["../../engine/quiz.css", "theme.css", "data.js", "../../engine/match.js", "../../engine/quiz.js", "../../engine/fullscreen.js"]);
     for (const r of refs) assert.ok(fs.existsSync(path.join(dir, r)), r);
 
     const ctx = vm.createContext({ module: {} });
-    for (const r of ["data.js", "../../engine/quiz.js"]) vm.runInContext(fs.readFileSync(path.join(dir, r), "utf8"), ctx, { filename: r });
+    for (const r of ["data.js", "../../engine/match.js", "../../engine/quiz.js"]) vm.runInContext(fs.readFileSync(path.join(dir, r), "utf8"), ctx, { filename: r });
     const out = vm.runInContext(`(() => {
       const { match } = createMatcher(GAME.items);
       const all = { letters: [] }; for (const h of GAME.hints || []) all[h.id] = true;

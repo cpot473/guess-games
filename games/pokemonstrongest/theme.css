@@ -1,0 +1,8 @@
+:root {
+  --bg: linear-gradient(135deg, #ffe66d, #ff9ecd 50%, #7fd8ff);
+  --title: #ffcb05; --title-edge: #3b4cca;
+  --accent: #3b4cca; --accent-shadow: #26308a;
+  --focus: #c0262d; --focus-shadow: #800;
+  --bar: linear-gradient(90deg, #ff5959, #ffcb05, #78c850);
+  --hint-bg: #e6e9ff; --hint-hover: #ccd2ff; --hint-ink: #26308a;
+}

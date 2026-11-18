@@ -1,0 +1,16 @@
+/* Extra layout for Top 10 games, on top of quiz.css (header, input, bar, message). */
+#rule { margin: 0 0 8px; font-size: 1rem; opacity: .85; }
+#rows { max-width: 640px; margin: 12px auto 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.row { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 6px 14px; background: #fff; border: 4px solid #fff; border-radius: 16px; box-shadow: 0 3px 0 #0003; }
+.row .rank { flex: none; min-width: 2.2em; font-size: 1.5rem; font-weight: bold; color: var(--accent); }
+.row .name { flex: 1; font-size: 1.3rem; font-weight: bold; }
+.row .value { font-size: .95rem; font-weight: bold; opacity: .85; }
+.row .clue { font-size: .9rem; text-align: right; max-width: 55%; }
+.row button { font: inherit; font-size: .85rem; font-weight: bold; border: 0; border-radius: 10px; padding: 4px 10px; cursor: pointer; background: var(--hint-bg); color: var(--hint-ink); }
+.row.done { background: var(--accent); border-color: var(--focus); color: #fff; animation: pop .5s; }
+.row.done .rank { color: #fff; }
+.row.missed { opacity: .65; }
+footer { max-width: 640px; margin: 16px auto 0; text-align: center; }
+#giveup { font: inherit; font-weight: bold; border: 0; border-radius: 14px; padding: 8px 16px; background: #fff; color: inherit; cursor: pointer; }
+#source { font-size: .8rem; opacity: .75; }
+@media (pointer: coarse) { .row button, #giveup { min-height: 44px; } }

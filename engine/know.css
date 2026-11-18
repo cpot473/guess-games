@@ -1,0 +1,19 @@
+/* Extra layout for Do you know? games, on top of quiz.css (header, bar, title). */
+#stage { max-width: 640px; margin: 12px auto 0; text-align: center; }
+.best, .count { font-size: 1.1rem; font-weight: bold; }
+.question { margin: 8px 0 16px; font-size: clamp(1.4rem, 4.5vw, 2rem); }
+.options, .levels { display: grid; gap: 10px; }
+.options button, .levels button, #next {
+  font: inherit; font-size: 1.25rem; font-weight: bold; min-height: 56px; padding: 10px 16px; cursor: pointer;
+  color: var(--ink); background: #fff; border: 4px solid var(--accent); border-radius: 18px; box-shadow: 0 4px 0 var(--accent-shadow);
+}
+.levels button { text-transform: capitalize; }
+.levels small { display: block; font-size: .8rem; font-weight: normal; opacity: .75; }
+.options button.right { background: #2f9e44; border-color: #1c6b2c; color: #fff; }
+.options button.wrong { background: #c0262d; border-color: #800; color: #fff; }
+.options button:disabled:not(.right):not(.wrong) { opacity: .55; }
+#result { margin-top: 14px; font-size: 1.1rem; }
+#result .good, .good { color: #1b6e2b; font-weight: bold; } #result .bad { color: #a01d23; font-weight: bold; }
+#next { margin-top: 8px; background: var(--focus); border-color: var(--focus-shadow); color: #fff; }
+.level { display: inline-block; margin-left: 6px; padding: 0 10px; border-radius: 10px; font-size: .8rem; color: #fff; background: #2f9e44; text-transform: capitalize; }
+.level.hard { background: #c0262d; }
