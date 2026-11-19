@@ -22,6 +22,7 @@ const GAMES = [
   "pokemongen2",
   "mrmen",
   "pokemonstrongest",
+  "biggestpokemon",
   "humanbody",
   "solarsystem",
   "volcanoes",

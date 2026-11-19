@@ -9,7 +9,7 @@ const top10 = GAMES.filter(g => fs.readFileSync(path.join(__dirname, "..", "game
 const games = Object.fromEntries(top10.map(g => [g, require(`../games/${g}/data.js`)]));
 
 test("the new Top 10s are there", () => {
-  for (const g of ["fastestanimals", "tallestmountains", "longestrivers", "largestcountries", "populatedcountries"]) assert.ok(top10.includes(g), g);
+  for (const g of ["fastestanimals", "biggestpokemon", "tallestmountains", "longestrivers", "largestcountries", "populatedcountries"]) assert.ok(top10.includes(g), g);
 });
 
 for (const [g, GAME] of Object.entries(games)) {
@@ -49,6 +49,9 @@ test("the facts at the top and bottom of each list", () => {
   assert.equal(first("fastestanimals"), "Cheetah"); assert.equal(games.fastestanimals.items[0].value, 120.7);
   assert.equal(games.fastestanimals.items[1].name, "Ostrich");
   assert.equal(createMatcher(games.fastestanimals.items).exact("gnu").name, "Wildebeest");
+  const big = games.biggestpokemon.items;
+  assert.deepEqual(big.slice(0, 3).map(p => [p.name, p.value]), [["Onix", 8.8], ["Gyarados", 6.5], ["Dragonair", 4]]);
+  assert.deepEqual(big.filter(p => p.value === 2).map(p => p.name).sort(), ["Ekans", "Exeggutor", "Mewtwo", "Moltres", "Venusaur"]);
   const { exact } = createMatcher(games.largestcountries.items);
   assert.equal(exact("USA").name, "United States");
   assert.equal(createMatcher(games.tallestmountains.items).exact("Everest").name, "Mount Everest");
