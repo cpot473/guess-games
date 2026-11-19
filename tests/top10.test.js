@@ -60,3 +60,9 @@ test("pokemonstrongest: index.html loads its data and engine together, and every
   assert.deepEqual(refs, ["../../engine/quiz.css", "../../engine/top10.css", "theme.css", "data.js", "../../engine/match.js", "../../engine/top10.js", "../../engine/fullscreen.js"]);
   assert.ok(require("vm").runInContext("typeof GAME.items.length === 'number' && typeof rowHTML === 'function'", ctx));
 });
+
+test("a found row shows a big value with thousands separators", () => {
+  const row = rowHTML({ valueLabel: "km²" }, { name: "Russia", value: 17098246, clue: "" }, "1", true, false, false);
+  assert.match(row, /17,098,246 km²/);
+  assert.match(rowHTML({ valueLabel: "km/h" }, { name: "Cheetah", value: 120.7, clue: "" }, "1", true, false, false), /120\.7 km\/h/);
+});

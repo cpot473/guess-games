@@ -21,6 +21,11 @@ const GAMES = [
   "mrmen",
   "pokemonstrongest",
   "humanbody",
+  "fastestanimals",
+  "tallestmountains",
+  "longestrivers",
+  "largestcountries",
+  "populatedcountries",
 ];
 
 // The launcher's home page: one tile per category, in this order. A game's GAME.category is one of these ids.

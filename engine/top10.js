@@ -15,7 +15,7 @@ function rankLabels(items) {
 
 // One row. found: guessed; shown: the player gave up, so the answer is revealed but not scored.
 function rowHTML(game, item, label, found, hinted, shown) {
-  const value = `<span class="value">${item.value} ${game.valueLabel}</span>`;
+  const value = `<span class="value">${item.value.toLocaleString("en-GB")} ${game.valueLabel}</span>`;
   if (found || shown) return `<li class="row ${found ? "done" : "missed"}"><span class="rank">${label}</span><span class="name">${item.name}</span>${value}</li>`;
   return `<li class="row"><span class="rank">${label}</span><span class="name">?</span>
     ${hinted ? `<span class="clue">${item.clue}</span>` : `<button data-hint title="Show a clue">💡 Clue</button>`}</li>`;
