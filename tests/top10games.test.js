@@ -9,7 +9,7 @@ const top10 = GAMES.filter(g => fs.readFileSync(path.join(__dirname, "..", "game
 const games = Object.fromEntries(top10.map(g => [g, require(`../games/${g}/data.js`)]));
 
 test("the new Top 10s are there", () => {
-  for (const g of ["fastestanimals", "biggestpokemon", "tallestmountains", "longestrivers", "largestcountries", "populatedcountries"]) assert.ok(top10.includes(g), g);
+  for (const g of ["fastestanimals", "biggestpokemon", "weakestpokemon", "tallestmountains", "longestrivers", "largestcountries", "populatedcountries"]) assert.ok(top10.includes(g), g);
 });
 
 for (const [g, GAME] of Object.entries(games)) {
@@ -19,7 +19,9 @@ for (const [g, GAME] of Object.entries(games)) {
     for (const it of GAME.items.slice(10)) assert.equal(it.value, GAME.items[9].value, it.name);
     assert.ok(GAME.rule && GAME.valueLabel && GAME.placeholder);
     assert.match(GAME.source, /checked \w+ 20\d\d/);
-    for (let i = 1; i < 10; i++) assert.ok(GAME.items[i - 1].value >= GAME.items[i].value, GAME.items[i].name);
+    // Best first: highest value first, or lowest first for a list like Weakest Pokémon (GAME.lowestFirst).
+    const inOrder = (a, b) => GAME.lowestFirst ? a <= b : a >= b;
+    for (let i = 1; i < GAME.items.length; i++) assert.ok(inOrder(GAME.items[i - 1].value, GAME.items[i].value), GAME.items[i].name);
     for (const it of GAME.items) assert.ok(typeof it.value === "number" && it.value > 0 && it.clue, it.name);
   });
 
@@ -49,6 +51,9 @@ test("the facts at the top and bottom of each list", () => {
   assert.equal(first("fastestanimals"), "Cheetah"); assert.equal(games.fastestanimals.items[0].value, 120.7);
   assert.equal(games.fastestanimals.items[1].name, "Ostrich");
   assert.equal(createMatcher(games.fastestanimals.items).exact("gnu").name, "Wildebeest");
+  assert.deepEqual(games.weakestpokemon.items.map(p => [p.name, p.value]).slice(0, 3), [["Caterpie", 195], ["Weedle", 195], ["Magikarp", 200]]);
+  assert.equal(last("weakestpokemon"), "Diglett");
+  assert.equal(require("../engine/top10.js").rankLabels(games.weakestpokemon.items).slice(0, 5).join(), "1=,1=,3,4=,4=");
   const big = games.biggestpokemon.items;
   assert.deepEqual(big.slice(0, 3).map(p => [p.name, p.value]), [["Onix", 8.8], ["Gyarados", 6.5], ["Dragonair", 4]]);
   assert.deepEqual(big.filter(p => p.value === 2).map(p => p.name).sort(), ["Ekans", "Exeggutor", "Mewtwo", "Moltres", "Venusaur"]);
