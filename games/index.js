@@ -13,6 +13,8 @@ const GAMES = [
   "elements",
   "bones",
   "vegetables",
+  "planets",
+  "animals",
   "gabby",
   "marvel",
   "minecraftmobs",

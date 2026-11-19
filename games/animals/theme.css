@@ -1,0 +1,13 @@
+:root {
+  /* safari: sky over grassland */
+  --bg: linear-gradient(180deg, #bfe6ff, #fff4c9 55%, #e8c77a);
+  --ink: #2e2a14;
+  --title: #ffd23f; --title-edge: #6b4a12;
+  --accent: #8a5a12; --accent-shadow: #5a3a0a;
+  --focus: #2f8a3c; --focus-shadow: #1c5c26;
+  --bar: linear-gradient(90deg, #7cd14b, #ffd23f, #e8751a);
+  --hint-bg: #fff0c2; --hint-hover: #ffe08a; --hint-ink: #5a3a0a;
+  --cell-min: 170px;
+  /* animal groups, used by filters, chips and found cards (dark enough for white text) */
+  --mammal:#a0522d; --bird:#1e6fd9; --reptile:#2f8a3c; --amphibian:#138d90; --fish:#6a4fd8; --invertebrate:#b8247e;
+}

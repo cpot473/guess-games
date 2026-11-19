@@ -1,9 +1,9 @@
-// The Learn! games with plain data lists: fruit, colours, elements, bones and vegetables.
+// The Learn! games with plain data lists: fruit, colours, elements, bones, vegetables, planets and animals.
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { createMatcher, normalize, cellHTML } = require("../engine/quiz.js");
 
-const games = Object.fromEntries(["fruit", "colours", "elements", "bones", "vegetables"].map(g => [g, require(`../games/${g}/data.js`)]));
+const games = Object.fromEntries(["fruit", "colours", "elements", "bones", "vegetables", "planets", "animals"].map(g => [g, require(`../games/${g}/data.js`)]));
 
 for (const [g, GAME] of Object.entries(games)) {
   test(`${g}: no two items share a name or alias, and every name and alias is accepted`, () => {
@@ -85,4 +85,38 @@ test("vegetables: the everyday vegetables are there, each with a plant part and 
   assert.equal(exact("Eggplant").name, "Aubergine");
   assert.equal(exact("Corn").name, "Sweetcorn");
   assert.equal(games.vegetables.items.find(v => v.name === "Broccoli").part, "flower");
+});
+
+test("planets: the eight planets, the five dwarf planets, and moons that each orbit one of them", () => {
+  const items = games.planets.items, of = k => items.filter(p => p.kind === k).map(p => p.name);
+  assert.deepEqual(of("planet"), ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]);
+  assert.deepEqual(of("dwarf").sort(), ["Ceres", "Eris", "Haumea", "Makemake", "Pluto"]);
+  const bodies = items.filter(p => p.kind !== "moon").map(p => p.name);
+  for (const p of items) {
+    assert.ok(p.clue, p.name);
+    assert.equal(p.orbits, p.kind === "moon" ? p.orbits : "The Sun", p.name);
+    if (p.kind === "moon") assert.ok(bodies.includes(p.orbits), `${p.name} orbits ${p.orbits}`);
+  }
+  for (const n of ["Moon", "Ganymede", "Titan", "Europa", "Io", "Triton", "Charon", "Phobos"]) assert.ok(of("moon").includes(n), n);
+  const { exact } = createMatcher(items);
+  assert.equal(exact("The Moon").name, "Moon");
+  assert.equal(items.find(p => p.name === "Ganymede").orbits, "Jupiter");
+});
+
+test("animals: every group has animals, each with a home and a clue, and everyday names are accepted", () => {
+  const items = games.animals.items;
+  assert.ok(items.length >= 100, String(items.length));
+  for (const f of games.animals.filters) assert.ok(items.filter(f.test).length >= 5, f.label);
+  for (const a of items) assert.ok(a.home && a.clue && !new RegExp(`\\b${a.name}\\b`, "i").test(a.clue), a.name);
+  const group = n => items.find(a => a.name === n).group;
+  assert.equal(group("Dolphin"), "mammal");
+  assert.equal(group("Bat"), "mammal");
+  assert.equal(group("Penguin"), "bird");
+  assert.equal(group("Frog"), "amphibian");
+  assert.equal(group("Seahorse"), "fish");
+  assert.equal(group("Spider"), "invertebrate");
+  const { exact } = createMatcher(items);
+  assert.equal(exact("Hippo").name, "Hippopotamus");
+  assert.equal(exact("Killer whale").name, "Orca");
+  assert.equal(exact("Ladybug").name, "Ladybird");
 });
