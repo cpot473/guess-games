@@ -1,7 +1,7 @@
 // Offline support for the launcher and every game: cache every file on install, serve from cache first.
 // VERSION holds a hash of the files' contents. tests/offline.test.js fails until it matches (and says
 // what to set), so no change ships without a new VERSION; the next online visit then fetches the new files.
-const VERSION = "guess-games-fd465aad";
+const VERSION = "guess-games-0fffd40b";
 // Everything the app needs (tests/offline.test.js checks the list). An index.html is listed by its
 // folder, the URL that the links use. pokequiz/ is the redirect left at the old game's address.
 const FILES = [
@@ -24,6 +24,8 @@ const FILES = [
   "games/marvel/", "games/marvel/data.js", "games/marvel/theme.css",
   "games/minecraftmobs/", "games/minecraftmobs/data.js", "games/minecraftmobs/theme.css",
   "games/minecraftblocks/", "games/minecraftblocks/data.js", "games/minecraftblocks/theme.css",
+  "games/pokemongen2/", "games/pokemongen2/data.js", "games/pokemongen2/theme.css",
+  "games/mrmen/", "games/mrmen/data.js", "games/mrmen/theme.css",
   "games/pokemonstrongest/", "games/pokemonstrongest/data.js", "games/pokemonstrongest/theme.css",
   "games/humanbody/", "games/humanbody/data.js", "games/humanbody/theme.css",
   "pokequiz/",

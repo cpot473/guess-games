@@ -1,0 +1,13 @@
+:root {
+  /* bright book-cover colours */
+  --bg: linear-gradient(180deg, #fff3a6, #ffffff 55%, #cfe9ff);
+  --ink: #1c1c1c;
+  --title: #ffd400; --title-edge: #e8312a;
+  --accent: #1e6fd9; --accent-shadow: #12489a;
+  --focus: #e8312a; --focus-shadow: #9e1b15;
+  --bar: linear-gradient(90deg, #e8312a, #ffd400, #1e6fd9);
+  --hint-bg: #fff3a6; --hint-hover: #ffe45c; --hint-ink: #5a4300;
+  --cell-min: 170px;
+  /* Mr. Men and Little Miss, used by filters, chips and found cards */
+  --mr:#1e6fd9; --miss:#e0489b;
+}

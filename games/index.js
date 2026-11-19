@@ -17,6 +17,8 @@ const GAMES = [
   "marvel",
   "minecraftmobs",
   "minecraftblocks",
+  "pokemongen2",
+  "mrmen",
   "pokemonstrongest",
   "humanbody",
 ];

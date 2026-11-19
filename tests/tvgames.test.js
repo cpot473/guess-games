@@ -1,9 +1,9 @@
-// The TV Shows & Games games with plain data lists: Gabby's Dollhouse, Marvel and the two Minecraft games.
+// The TV Shows & Games games with plain data lists: Gabby's Dollhouse, Marvel, the two Minecraft games and Mr. Men.
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { createMatcher, normalize } = require("../engine/quiz.js");
 
-const games = Object.fromEntries(["gabby", "marvel", "minecraftmobs", "minecraftblocks"].map(g => [g, require(`../games/${g}/data.js`)]));
+const games = Object.fromEntries(["gabby", "marvel", "minecraftmobs", "minecraftblocks", "mrmen"].map(g => [g, require(`../games/${g}/data.js`)]));
 
 for (const [g, GAME] of Object.entries(games)) {
   test(`${g}: no two items share a name or alias, and every name and alias is accepted`, () => {
@@ -79,4 +79,16 @@ test("minecraftblocks: families are generated in full, and Grey is accepted for 
   const { exact } = createMatcher(items);
   assert.equal(exact("Light Grey Wool").name, "Light Gray Wool");
   assert.equal(items.find(b => b.name === "Waxed Exposed Copper").type, "copper");
+});
+
+test("mrmen: Mr. Men and Little Miss, and a child can type just the last word", () => {
+  const items = games.mrmen.items, names = items.map(c => c.name);
+  for (const n of ["Mr. Tickle", "Mr. Happy", "Mr. Bump", "Mr. Strong", "Little Miss Sunshine", "Little Miss Bossy", "Little Miss Naughty"]) assert.ok(names.includes(n), n);
+  for (const c of items) assert.match(c.name, c.kind === "mr" ? /^Mr\. / : /^Little Miss /, c.name);
+  const { exact } = createMatcher(items);
+  assert.equal(exact("Mr Tickle").name, "Mr. Tickle");
+  assert.equal(exact("tickle").name, "Mr. Tickle");
+  assert.equal(exact("Sunshine").name, "Little Miss Sunshine");
+  assert.equal(exact("Busy"), null); // Mr. Busy and Little Miss Busy
+  assert.equal(exact("Mr Busy").name, "Mr. Busy");
 });
