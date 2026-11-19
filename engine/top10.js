@@ -30,6 +30,7 @@ function startTop10(game) {
       <p id="rule">${game.rule}</p>
       <div class="score"><span id="score">0</span> / ${total} <button id="reset" title="Start over">New game</button></div>
       <div class="bar"><div id="bar-fill"></div></div>
+      <div id="timer" class="timer"></div>
       <input id="guess" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
              enterkeyhint="go" placeholder="${game.placeholder}">
       <div id="message" aria-live="polite">Type a name. After ${MIN_LETTERS} letters it's checked automatically!</div>
@@ -39,6 +40,15 @@ function startTop10(game) {
 
   const $ = id => document.getElementById(id), input = $("guess");
   let state = load();
+  // A timed run (timer.js) has a board of its own, in the same shape: board() is the one in use.
+  const timer = createTimer(game, $("timer"), {
+    fresh: () => ({ guessed: new Set(), hints: new Set(), shown: false }),
+    load: b => ({ guessed: new Set(b.guessed), hints: new Set(b.hints || []), shown: false }),
+    dump: b => ({ guessed: [...b.guessed], hints: [...b.hints] }),
+    changed() { render(); say(timer.board() ? `⏱️ Go! Find all ${total}!` : `Back to your saved game.`); },
+    refocus: () => {}, // focusing the input after a tap would pop up the phone keyboard
+  });
+  const board = () => timer.board() || state;
 
   function load() {
     try {
@@ -52,17 +62,27 @@ function startTop10(game) {
   }
   function say(text, cls) { $("message").textContent = text; $("message").className = cls || ""; }
   function render() {
-    $("rows").innerHTML = items.map((it, i) => rowHTML(game, it, labels[i], state.guessed.has(i + 1), state.hints.has(i + 1), state.shown)).join("");
-    $("score").textContent = state.guessed.size;
-    $("bar-fill").style.width = (state.guessed.size / total * 100) + "%";
-    $("giveup").hidden = state.shown || state.guessed.size === total;
+    const b = board();
+    $("rows").innerHTML = items.map((it, i) => rowHTML(game, it, labels[i], b.guessed.has(i + 1), b.hints.has(i + 1), b.shown)).join("");
+    $("score").textContent = b.guessed.size;
+    $("bar-fill").style.width = (b.guessed.size / total * 100) + "%";
+    $("giveup").hidden = b.shown || b.guessed.size === total;
   }
   function accept(item) {
     const id = items.indexOf(item) + 1;
     input.value = "";
-    if (state.guessed.has(id)) { say(`You already found ${item.name}!`, "bad"); return; }
-    state.guessed.add(id); save(); render();
-    say(state.guessed.size === total ? `🏆 YOU DID IT! The whole top ${total}! 🏆` : `Yes! ${item.name} is number ${labels[id - 1]}!`, "good");
+    timer.resume();
+    const b = board();
+    if (b.guessed.has(id)) { say(`You already found ${item.name}!`, "bad"); return; }
+    b.guessed.add(id);
+    state.guessed.add(id); // a find in a timed run counts towards the saved game too
+    save(); timer.save(); render();
+    if (b !== state && b.guessed.size === total) {
+      const { ms, rank } = timer.finish();
+      say(`🏆 You found all ${total} in ${formatTime(ms, true)}!` + (rank ? ` That's your number ${rank} best time!` : ""), "good");
+      return;
+    }
+    say(b.guessed.size === total ? `🏆 YOU DID IT! The whole top ${total}! 🏆` : `Yes! ${item.name} is number ${labels[id - 1]}!`, "good");
   }
 
   // A full name that also starts a longer one (Mew / Mewtwo) is accepted after a pause, or on Enter.
@@ -77,16 +97,25 @@ function startTop10(game) {
   input.addEventListener("keydown", e => {
     if (e.key !== "Enter" || !input.value.trim()) return;
     clearTimeout(pauseTimer);
+    timer.resume(); // submitting an answer ends a pause
     const it = match(input.value, true);
     if (it) accept(it);
     else { say("Not in the top 10 — try again!", "bad"); input.classList.remove("shake"); void input.offsetWidth; input.classList.add("shake"); }
   });
   $("rows").addEventListener("click", e => {
     const row = e.target.closest("button[data-hint]"); if (!row) return;
-    state.hints.add([...$("rows").children].indexOf(row.closest("li")) + 1); save(); render();
+    board().hints.add([...$("rows").children].indexOf(row.closest("li")) + 1); save(); timer.save(); render();
   });
-  $("giveup").addEventListener("click", () => { state.shown = true; save(); render(); say("Here they are. Press New game to try again!"); });
+  // Giving up in a timed run ends the run without a time, and shows the answers on the saved game.
+  $("giveup").addEventListener("click", () => {
+    if (timer.board()) timer.stop();
+    state.shown = true; save(); render(); say("Here they are. Press New game to try again!");
+  });
   $("reset").addEventListener("click", () => {
+    if (timer.board()) { // in a timed run, New game starts the run again
+      if (confirm("Start the timed run again from 0:00?")) timer.start();
+      input.focus(); return;
+    }
     if ((state.guessed.size || state.shown) && !confirm("Start a new game? Your progress will be lost.")) return;
     state = { guessed: new Set(), hints: new Set(), shown: false };
     save(); render(); say("New game! Type a name."); input.focus();

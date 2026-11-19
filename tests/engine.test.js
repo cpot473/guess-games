@@ -56,7 +56,7 @@ for (const g of require("../games/index.js").GAMES.filter(g => !/top10|know/.tes
     const dir = path.join(__dirname, "..", "games", g);
     const html = fs.readFileSync(path.join(dir, "index.html"), "utf8");
     const refs = [...html.matchAll(/(?:src|href)="([^"]+)"/g)].map(m => m[1]);
-    assert.deepEqual(refs, ["../../engine/quiz.css", "theme.css", "data.js", "../../engine/match.js", "../../engine/quiz.js", "../../engine/fullscreen.js"]);
+    assert.deepEqual(refs, ["../../engine/quiz.css", "theme.css", "data.js", "../../engine/match.js", "../../engine/timer.js", "../../engine/quiz.js", "../../engine/fullscreen.js"]);
     for (const r of refs) assert.ok(fs.existsSync(path.join(dir, r)), r);
 
     const ctx = vm.createContext({ module: {} });

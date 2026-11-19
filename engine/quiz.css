@@ -75,3 +75,17 @@ h1 { margin: 0 0 6px; font-size: clamp(1.8rem, 5vw, 2.8rem); color: var(--title)
 
 @keyframes shake { 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
 @keyframes pop { 0% { transform: scale(.7); } 60% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+/* Timed mode (timer.js): the clock and its buttons, under the progress bar. */
+.timer { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; align-items: center; margin: 0 0 10px; }
+.timer button { font: inherit; font-size: .9rem; font-weight: bold; border: 0; border-radius: 14px; padding: 6px 12px; min-height: 36px; background: #fffc; color: inherit; cursor: pointer; }
+.timer .clock { font-size: 1.4rem; font-weight: bold; min-width: 4.5em; font-variant-numeric: tabular-nums; }
+.timer .clock.paused { opacity: .6; }
+#t-list { flex-basis: 100%; max-width: 320px; margin: 4px auto 0; padding: 8px 14px; background: #fffc; border-radius: 14px; text-align: left; }
+#t-list ol { margin: 0; padding-left: 1.6em; }
+#t-list li { padding: 2px 0; }
+#t-list li span { font-size: .8rem; opacity: .7; margin-left: 6px; }
+#t-list li.new { color: var(--focus); }
+#t-list li.new::after { content: " ⭐ New!"; }
+#t-list .none { margin: 0; text-align: center; }
+@media (pointer: coarse) { .timer button { min-height: 44px; } }

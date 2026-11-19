@@ -57,7 +57,7 @@ function loadPage(game, engine) {
 
 test("pokemonstrongest: index.html loads its data and engine together, and every row renders", () => {
   const { refs, ctx } = loadPage("pokemonstrongest", "top10");
-  assert.deepEqual(refs, ["../../engine/quiz.css", "../../engine/top10.css", "theme.css", "data.js", "../../engine/match.js", "../../engine/top10.js", "../../engine/fullscreen.js"]);
+  assert.deepEqual(refs, ["../../engine/quiz.css", "../../engine/top10.css", "theme.css", "data.js", "../../engine/match.js", "../../engine/timer.js", "../../engine/top10.js", "../../engine/fullscreen.js"]);
   assert.ok(require("vm").runInContext("typeof GAME.items.length === 'number' && typeof rowHTML === 'function'", ctx));
 });
 

@@ -55,6 +55,7 @@ function startQuiz(game) {
       <h1>${game.title}</h1>
       <div class="score"><span id="score">0</span> / ${total} <button id="reset" title="Start over">New game</button></div>
       <div class="bar"><div id="bar-fill"></div></div>
+      <div id="timer" class="timer"></div>
       <input id="guess" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
              enterkeyhint="go" placeholder="${game.placeholder}">
       <div id="message" aria-live="polite">Type a ${game.noun}'s name. After ${MIN_LETTERS} letters it's checked automatically!</div>
@@ -66,8 +67,17 @@ function startQuiz(game) {
   const input = $("guess"), msg = $("message");
 
   // state: guessed = Set of ids (position in items, from 1); hints[id] = { letters: [indexes], <hint id>: true }
+  // A timed run (timer.js) has a board of its own, in the same shape: board() is the one in use.
   let state = load();
   let filter = 0;
+  const timer = createTimer(game, $("timer"), {
+    fresh: () => ({ guessed: new Set(), hints: {} }),
+    load: b => ({ guessed: new Set(b.guessed), hints: b.hints || {} }),
+    dump: b => ({ guessed: [...b.guessed], hints: b.hints }),
+    changed() { render(); say(timer.board() ? `⏱️ Go! Find all ${total} ${game.nouns}!` : `Back to your saved game.`); },
+    refocus: e => refocus(e),
+  });
+  const board = () => timer.board() || state;
 
   function load() {
     try {
@@ -87,11 +97,11 @@ function startQuiz(game) {
   }
 
   function render() {
-    const test = filters.length ? filters[filter].test : () => true;
-    $("table").innerHTML = items.map((it, i) => test(it) ? cellHTML(game, it, i + 1, state.guessed.has(i + 1), state.hints[i + 1]) : "")
+    const test = filters.length ? filters[filter].test : () => true, b = board();
+    $("table").innerHTML = items.map((it, i) => test(it) ? cellHTML(game, it, i + 1, b.guessed.has(i + 1), b.hints[i + 1]) : "")
       .join("") || `<p class="empty">Nothing here!</p>`;
-    $("score").textContent = state.guessed.size;
-    $("bar-fill").style.width = (state.guessed.size / total * 100) + "%";
+    $("score").textContent = b.guessed.size;
+    $("bar-fill").style.width = (b.guessed.size / total * 100) + "%";
     $("filters").querySelectorAll("button").forEach(b => b.classList.toggle("active", +b.dataset.f === filter));
   }
 
@@ -100,10 +110,18 @@ function startQuiz(game) {
   function accept(item) {
     const id = items.indexOf(item) + 1;
     input.value = "";
-    if (state.guessed.has(id)) { say(`You already ${game.verb} ${item.name}!`, "bad"); return; }
-    state.guessed.add(id);
-    save(); render();
-    const done = state.guessed.size === total;
+    timer.resume();
+    const b = board();
+    if (b.guessed.has(id)) { say(`You already ${game.verb} ${item.name}!`, "bad"); return; }
+    b.guessed.add(id);
+    state.guessed.add(id); // a find in a timed run counts towards the saved game too
+    save(); timer.save(); render();
+    if (b !== state && b.guessed.size === total) {
+      const { ms, rank } = timer.finish();
+      say(`🏆 You found all ${total} in ${formatTime(ms, true)}!` + (rank ? ` That's your number ${rank} best time!` : ""), "good");
+      return;
+    }
+    const done = b.guessed.size === total;
     say(done ? `🏆 YOU DID IT! You guessed all ${total} ${game.nouns}! 🏆`
              : `${game.cheers[Math.floor(Math.random() * game.cheers.length)]} ${item.name}!`, "good");
   }
@@ -121,6 +139,7 @@ function startQuiz(game) {
   input.addEventListener("keydown", e => {
     if (e.key !== "Enter" || !input.value.trim()) return;
     clearTimeout(pauseTimer);
+    timer.resume(); // submitting an answer ends a pause
     const it = match(input.value, true);
     if (it) accept(it);
     else {
@@ -141,17 +160,21 @@ function startQuiz(game) {
   $("table").addEventListener("click", e => {
     const b = e.target.closest("button[data-h]"); if (!b) return;
     const n = +b.closest(".cell").dataset.n, it = items[n - 1];
-    const h = state.hints[n] = state.hints[n] || { letters: [] };
+    const hints = board().hints, h = hints[n] = hints[n] || { letters: [] };
     if (b.dataset.h !== "letter") h[b.dataset.h] = true;
     else {
       // random letter that isn't revealed yet; always keep at least one letter hidden
       const hidden = hiddenLetters(it.name, h.letters);
       if (hidden.length > 1) h.letters.push(hidden[Math.floor(Math.random() * hidden.length)]);
     }
-    save(); render(); refocus(e);
+    save(); timer.save(); render(); refocus(e);
   });
 
   $("reset").addEventListener("click", e => {
+    if (timer.board()) { // in a timed run, New game starts the run again
+      if (confirm("Start the timed run again from 0:00?")) timer.start();
+      refocus(e); return;
+    }
     if (state.guessed.size && !confirm("Start a new game? Your progress will be lost.")) { refocus(e); return; }
     state = { guessed: new Set(), hints: {} };
     save(); render(); say(`New game! Type a ${game.noun}'s name.`); refocus(e);
